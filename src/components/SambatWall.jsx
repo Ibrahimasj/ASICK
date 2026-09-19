@@ -34,6 +34,21 @@ export default function SambatWall() {
     localStorage.setItem('asick_keluh_kesah_notes', JSON.stringify(notes));
   }, [notes]);
 
+  useEffect(() => {
+    if (modalOpen) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') setModalOpen(false);
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = orig;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [modalOpen]);
+
   const categories = [
     { name: 'Sambat Matkul', color: 'text-rose-400 bg-rose-500/10 border-rose-500/20' },
     { name: 'Curhat Asdos', color: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
@@ -184,8 +199,8 @@ export default function SambatWall() {
 
       {/* Modal: Tinggalkan Pesan */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-midnight-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-2xl relative animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 sm:bg-midnight-950/80 sm:backdrop-blur-md transition-opacity duration-200">
+          <div className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-2xl relative">
             
             {/* Close Button */}
             <button

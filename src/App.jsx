@@ -11,24 +11,31 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const sections = ['hero', 'pulse', 'roster', 'vault', 'sambat'];
-      const scrollPosition = window.scrollY + 200;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sections = ['hero', 'pulse', 'roster', 'vault', 'sambat'];
+          const scrollPosition = window.scrollY + 200;
 
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
+          for (const section of sections) {
+            const el = document.getElementById(section);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                setActiveSection(section);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

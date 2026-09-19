@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Sparkles, X, UserCheck, User, ShieldCheck } from 'lucide-react';
 import { studentsData, classMetadata } from '../data/classData';
 
@@ -15,6 +15,21 @@ export default function StudentRoster() {
       );
     });
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (selectedStudent) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') setSelectedStudent(null);
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = orig;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [selectedStudent]);
 
   return (
     <section id="roster" className="py-20 relative">
@@ -143,11 +158,11 @@ export default function StudentRoster() {
       {selectedStudent && (
         <div 
           onClick={() => setSelectedStudent(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-midnight-950/80 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 sm:bg-midnight-950/80 sm:backdrop-blur-md transition-opacity duration-200"
         >
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-[0_0_50px_rgba(0,210,255,0.2)] relative animate-in zoom-in-95 duration-200"
+            className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-[0_0_50px_rgba(0,210,255,0.2)] relative"
           >
             {/* Close Button */}
             <button

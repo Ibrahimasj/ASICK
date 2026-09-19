@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Camera, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { momentsData } from '../data/classData';
 
@@ -14,14 +14,34 @@ export default function MemoryVault() {
   };
 
   const handlePrev = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     setLightboxIndex((prev) => (prev > 0 ? prev - 1 : momentsData.length - 1));
   };
 
   const handleNext = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     setLightboxIndex((prev) => (prev < momentsData.length - 1 ? prev + 1 : 0));
   };
+
+  // Lock body scroll and handle keyboard navigation when lightbox is open
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') handlePrev();
+        if (e.key === 'ArrowRight') handleNext();
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [lightboxIndex]);
 
   const currentMoment = lightboxIndex !== null ? momentsData[lightboxIndex] : null;
 
@@ -61,6 +81,8 @@ export default function MemoryVault() {
                 <img
                   src={moment.image}
                   alt={`Momen ASICK ${idx + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -77,20 +99,20 @@ export default function MemoryVault() {
 
       </div>
 
-      {/* Lightbox Modal: Pure Image View Only */}
+      {/* Lightbox Modal: iOS Safari Crash-Safe (Pure Image View) */}
       {lightboxIndex !== null && currentMoment && (
         <div
           onClick={closeLightbox}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-midnight-950/95 backdrop-blur-xl animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/95 sm:bg-midnight-950/95 sm:backdrop-blur-md transition-opacity duration-200"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center rounded-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+            className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center rounded-2xl overflow-hidden"
           >
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-midnight-950/80 text-slate-300 hover:text-white border border-white/10 hover:border-cyan-400/40 transition-colors shadow-lg"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 p-2.5 rounded-full bg-midnight-950/90 text-slate-300 hover:text-white border border-white/10 hover:border-cyan-400/40 transition-colors shadow-lg active:scale-95"
               title="Tutup Preview"
             >
               <X className="w-5 h-5" />
@@ -99,19 +121,19 @@ export default function MemoryVault() {
             {/* Previous Navigation Button */}
             <button
               onClick={handlePrev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-midnight-950/80 text-white hover:text-cyan-300 border border-white/10 hover:border-cyan-400/40 transition-all hover:scale-110 shadow-lg"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3 rounded-full bg-midnight-950/90 text-white hover:text-cyan-300 border border-white/10 hover:border-cyan-400/40 transition-all hover:scale-110 active:scale-95 shadow-lg"
               title="Foto Sebelumnya"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Next Navigation Button */}
             <button
               onClick={handleNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-midnight-950/80 text-white hover:text-cyan-300 border border-white/10 hover:border-cyan-400/40 transition-all hover:scale-110 shadow-lg"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3 rounded-full bg-midnight-950/90 text-white hover:text-cyan-300 border border-white/10 hover:border-cyan-400/40 transition-all hover:scale-110 active:scale-95 shadow-lg"
               title="Foto Selanjutnya"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Pure Modal Image View */}
@@ -119,7 +141,8 @@ export default function MemoryVault() {
               <img
                 src={currentMoment.image}
                 alt="Momen ASICK Preview"
-                className="w-full h-full max-h-[85vh] object-contain rounded-2xl"
+                decoding="async"
+                className="w-full h-auto max-h-[85vh] object-contain rounded-2xl select-none"
               />
             </div>
           </div>
