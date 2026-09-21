@@ -83,6 +83,8 @@ export default function MemoryVault() {
                   alt={`Momen ASICK ${idx + 1}`}
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="300"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

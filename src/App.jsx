@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BentoPulse from './components/BentoPulse';
@@ -8,60 +8,6 @@ import SambatWall from './components/SambatWall';
 import Footer from './components/Footer';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('hero');
-  const activeRef = React.useRef('hero');
-
-  useEffect(() => {
-    const sectionIds = ['hero', 'pulse', 'roster', 'vault', 'sambat'];
-    const sectionElements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
-
-    if ('IntersectionObserver' in window && sectionElements.length > 0) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && activeRef.current !== entry.target.id) {
-              activeRef.current = entry.target.id;
-              setActiveSection(entry.target.id);
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: '-20% 0px -60% 0px',
-          threshold: 0
-        }
-      );
-
-      sectionElements.forEach((el) => observer.observe(el));
-      return () => observer.disconnect();
-    } else {
-      // Graceful fallback for older engines with throttled passive scroll
-      let ticking = false;
-      const handleScroll = () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const scrollPosition = window.scrollY + 200;
-            for (const section of sectionIds) {
-              const el = document.getElementById(section);
-              if (el) {
-                const top = el.offsetTop;
-                const height = el.offsetHeight;
-                if (scrollPosition >= top && scrollPosition < top + height) {
-                  setActiveSection(section);
-                  break;
-                }
-              }
-            }
-            ticking = false;
-          });
-          ticking = true;
-        }
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
-
   return (
     <div className="relative bg-midnight-950 text-slate-100 min-h-screen selection:bg-cyan-400 selection:text-midnight-950 overflow-x-clip">
       
@@ -76,7 +22,7 @@ export default function App() {
       </div>
 
       {/* Floating Glass Navbar */}
-      <Navbar activeSection={activeSection} />
+      <Navbar />
 
       {/* Main Content Layout */}
       <main className="relative z-10">

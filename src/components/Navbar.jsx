@@ -1,46 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, Sparkles, Menu, X, Calendar, Users, Camera, MessageSquareCode, Home } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Sparkles, Menu, X, Calendar, Users, Camera, MessageSquareCode, Home } from 'lucide-react';
 import { classMetadata } from '../data/classData';
+import LiveClock from './LiveClock';
 
-export default function Navbar({ activeSection }) {
-  const [time, setTime] = useState('');
+export default function Navbar() {
+  const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const activeRef = useRef('hero');
 
+  // Lightweight IntersectionObserver isolated inside Navbar only
   useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      setTime(`${hours}:${minutes}:${seconds} WIB`);
-    };
+    const sectionIds = ['hero', 'pulse', 'roster', 'vault', 'sambat'];
+    const sectionElements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
 
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    if ('IntersectionObserver' in window && sectionElements.length > 0) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && activeRef.current !== entry.target.id) {
+              activeRef.current = entry.target.id;
+              setActiveSection(entry.target.id);
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '-20% 0px -60% 0px',
+          threshold: 0
+        }
+      );
 
-  useEffect(() => {
-    let ticking = false;
-    let lastScrolled = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const isScrolled = window.scrollY > 30;
-          if (isScrolled !== lastScrolled) {
-            lastScrolled = isScrolled;
-            setScrolled(isScrolled);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+      sectionElements.forEach((el) => observer.observe(el));
+      return () => observer.disconnect();
+    }
   }, []);
 
   const navLinks = [
@@ -52,11 +44,7 @@ export default function Navbar({ activeSection }) {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 py-2.5 sm:py-3.5 ${
-      scrolled 
-        ? 'bg-midnight-950/90 backdrop-blur-none md:backdrop-blur-xl border-b border-white/10 shadow-md md:shadow-2xl md:shadow-midnight-950/50' 
-        : 'bg-midnight-950/40 backdrop-blur-none md:backdrop-blur-md border-b border-white/5'
-    }`}>
+    <header className="sticky top-0 z-50 py-2.5 sm:py-3.5 bg-midnight-950/85 backdrop-blur-none md:backdrop-blur-xl border-b border-white/10 shadow-md transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Brand: Circular Logo + Text */}
@@ -112,11 +100,8 @@ export default function Navbar({ activeSection }) {
 
         {/* Right: Clock & Semester Badge */}
         <div className="hidden lg:flex items-center gap-3">
-          {/* Live Clock */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/60 border border-white/10 text-xs font-mono text-cyan-300 shadow-sm">
-            <Clock className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
-            <span>{time || '--:--:-- WIB'}</span>
-          </div>
+          {/* Live Clock - Isolated Re-render */}
+          <LiveClock />
 
           {/* Active Semester Badge */}
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-xs font-medium text-blue-200">
@@ -127,10 +112,7 @@ export default function Navbar({ activeSection }) {
 
         {/* Mobile Hamburger Button */}
         <div className="flex items-center gap-2 md:hidden">
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-900/60 border border-white/10 text-[11px] font-mono text-cyan-300">
-            <Clock className="w-3 h-3 text-cyan-400" />
-            <span>{time.split(' ')[0]}</span>
-          </div>
+          <LiveClock showSeconds={false} className="px-2.5 py-1 text-[11px]" />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl bg-slate-900/70 border border-white/10 text-slate-300 hover:text-white"

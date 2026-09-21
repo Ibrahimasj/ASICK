@@ -670,7 +670,7 @@ export const playlistData = [
     title: "Midnight Lo-fi Beats (ASICK Code Focus)",
     artist: "ChilledCow / ASICK Lounge",
     duration: "2:45",
-    cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&auto=format&fit=crop&q=80",
+    cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=200&auto=format&fit=crop&q=75",
     audioSrc: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
   },
   {
@@ -678,7 +678,7 @@ export const playlistData = [
     title: "Cyberpunk Synthwave Ambience",
     artist: "Neon Skyline Beats",
     duration: "3:12",
-    cover: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=300&auto=format&fit=crop&q=80",
+    cover: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=200&auto=format&fit=crop&q=75",
     audioSrc: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=chill-abstract-intention-12099.mp3"
   },
   {
@@ -686,7 +686,7 @@ export const playlistData = [
     title: "Deep Coffee Shop Rain Vibes",
     artist: "Aesthetic Study Station",
     duration: "2:58",
-    cover: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=300&auto=format&fit=crop&q=80",
+    cover: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=200&auto=format&fit=crop&q=75",
     audioSrc: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=lofi-rain-10114.mp3"
   }
 ];
