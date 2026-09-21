@@ -52,10 +52,10 @@ export default function Navbar({ activeSection }) {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 transform-gpu ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 py-2.5 sm:py-3.5 ${
       scrolled 
-        ? 'py-2.5 bg-midnight-950/80 backdrop-blur-none md:backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-midnight-950/50' 
-        : 'py-4 bg-midnight-950/40 backdrop-blur-none md:backdrop-blur-md border-b border-white/5'
+        ? 'bg-midnight-950/90 backdrop-blur-none md:backdrop-blur-xl border-b border-white/10 shadow-md md:shadow-2xl md:shadow-midnight-950/50' 
+        : 'bg-midnight-950/40 backdrop-blur-none md:backdrop-blur-md border-b border-white/5'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         

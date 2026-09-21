@@ -74,7 +74,7 @@ export default function MemoryVault() {
             <div
               key={moment.id}
               onClick={() => openLightbox(idx)}
-              className="group relative rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-cyan-400/50 cursor-pointer shadow-lg hover:shadow-[0_0_30px_rgba(0,210,255,0.3)] transition-all duration-300 hover:-translate-y-1"
+              className="group relative rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-cyan-400/50 cursor-pointer shadow-md md:shadow-lg sm:hover:shadow-[0_0_30px_rgba(0,210,255,0.3)] transition-colors sm:transition-all duration-300 sm:hover:-translate-y-1"
             >
               {/* Image Container with Hover Zoom */}
               <div className="aspect-[4/3] w-full overflow-hidden bg-slate-900">

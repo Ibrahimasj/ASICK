@@ -44,8 +44,8 @@ export default {
           '50%': { transform: 'translateY(-8px)' },
         },
         glowPulse: {
-          '0%, 100%': { boxShadow: '0 0 25px rgba(0, 210, 255, 0.3), 0 0 50px rgba(37, 99, 235, 0.2)' },
-          '50%': { boxShadow: '0 0 45px rgba(0, 210, 255, 0.55), 0 0 75px rgba(37, 99, 235, 0.35)' },
+          '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+          '50%': { opacity: '0.95', transform: 'scale(1.04)' },
         }
       }
     },

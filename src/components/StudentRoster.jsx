@@ -89,7 +89,7 @@ export default function StudentRoster() {
               <div
                 key={student.id}
                 onClick={() => setSelectedStudent(student)}
-                className="group relative rounded-2xl glass-card p-5 border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(0,210,255,0.25)] transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5"
+                className="group relative rounded-2xl glass-card p-5 border border-white/10 hover:border-cyan-400/50 sm:hover:shadow-[0_0_30px_rgba(0,210,255,0.25)] transition-colors sm:transition-all duration-300 cursor-pointer flex flex-col justify-between sm:hover:-translate-y-1.5"
               >
                 {/* Header Badge: No. Absen & NPM */}
                 <div className="flex items-center justify-between gap-2 pb-3 mb-3.5 border-b border-white/5">

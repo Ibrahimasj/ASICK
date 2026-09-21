@@ -6,7 +6,6 @@
   body {
     background-color: #0B0F19;
     color: #F8FAFC;
-    overflow-x: hidden;
   }
 
   /* Custom sleek scrollbar */
@@ -27,11 +26,11 @@
   }
 }
 
-/* Glassmorphism Utilities - Mobile GPU Optimized (No backdrop-filter overhead on mobile, enabled on md+) */
+/* Glassmorphism Utilities - Mobile GPU Optimized */
 .glass-card {
   background: rgba(15, 23, 42, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 @media (min-width: 768px) {
@@ -41,9 +40,11 @@
   }
 }
 
-.glass-card:hover {
-  border-color: rgba(56, 189, 248, 0.25);
-  box-shadow: 0 12px 30px -10px rgba(0, 210, 255, 0.15);
+@media (hover: hover) and (pointer: fine) {
+  .glass-card:hover {
+    border-color: rgba(56, 189, 248, 0.25);
+    box-shadow: 0 12px 30px -10px rgba(0, 210, 255, 0.15);
+  }
 }
 
 .glass-pill {

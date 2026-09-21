@@ -132,7 +132,7 @@ export default function SambatWall() {
             {notes.map((note) => (
               <div
                 key={note.id}
-                className="glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 hover:-translate-y-1 transition-all duration-300 relative group overflow-hidden shadow-lg"
+                className="glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 sm:hover:-translate-y-1 transition-colors sm:transition-all duration-300 relative group overflow-hidden shadow-md md:shadow-lg"
               >
                 {/* Top: Category Tag & Mood Emoji */}
                 <div>
