@@ -27,13 +27,18 @@
   }
 }
 
-/* Glassmorphism Utilities */
+/* Glassmorphism Utilities - Mobile GPU Optimized (No backdrop-filter overhead on mobile, enabled on md+) */
 .glass-card {
   background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
 .glass-card:hover {
@@ -43,17 +48,28 @@
 
 .glass-pill {
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .glass-pill {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .glass-input {
   background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #F8FAFC;
   transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .glass-input {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .glass-input:focus {
@@ -62,11 +78,19 @@
   outline: none;
 }
 
-/* Ambient Glow Orbs - Optimized with native radial gradients to eliminate iOS WebKit blur crashes */
+/* iOS GPU Acceleration helper - selectively applied to avoid memory pressure */
+.ios-gpu {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Ambient Glow Orbs - Native radial gradients, lighter footprint on mobile */
 .ambient-glow-blue {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0.1) 35%, transparent 70%);
   pointer-events: none;
@@ -75,12 +99,23 @@
 
 .ambient-glow-cyan {
   position: absolute;
-  width: 450px;
-  height: 450px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0, 210, 255, 0.22) 0%, rgba(0, 210, 255, 0.08) 35%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .ambient-glow-blue {
+    width: 500px;
+    height: 500px;
+  }
+  .ambient-glow-cyan {
+    width: 450px;
+    height: 450px;
+  }
 }
 
 /* Audio Visualizer Wave Animation */

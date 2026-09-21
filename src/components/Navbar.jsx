@@ -22,14 +22,24 @@ export default function Navbar({ activeSection }) {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
+    let lastScrolled = false;
+
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 30;
+          if (isScrolled !== lastScrolled) {
+            lastScrolled = isScrolled;
+            setScrolled(isScrolled);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -42,10 +52,10 @@ export default function Navbar({ activeSection }) {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 transform-gpu ${
       scrolled 
-        ? 'py-2.5 bg-midnight-950/80 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-midnight-950/50' 
-        : 'py-4 bg-midnight-950/40 backdrop-blur-md border-b border-white/5'
+        ? 'py-2.5 bg-midnight-950/80 backdrop-blur-none md:backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-midnight-950/50' 
+        : 'py-4 bg-midnight-950/40 backdrop-blur-none md:backdrop-blur-md border-b border-white/5'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
@@ -56,6 +66,8 @@ export default function Navbar({ activeSection }) {
               <img 
                 src="/logo-asick.png" 
                 alt="ASICK Class Logo" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain rounded-full aspect-square"
               />
             </div>

@@ -98,7 +98,7 @@ export default function SambatWall() {
   return (
     <section id="sambat" className="py-20 relative">
       {/* Background ambient glow */}
-      <div className="ambient-glow-blue top-1/2 -right-32 opacity-20"></div>
+      <div className="ambient-glow-blue top-1/2 -right-32 opacity-20 hidden md:block"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -200,7 +200,7 @@ export default function SambatWall() {
       {/* Modal: Tinggalkan Pesan */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 sm:bg-midnight-950/80 sm:backdrop-blur-md transition-opacity duration-200">
-          <div className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-2xl relative">
+          <div className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-2xl relative transform-gpu">
             
             {/* Close Button */}
             <button

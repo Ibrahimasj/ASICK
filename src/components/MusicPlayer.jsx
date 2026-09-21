@@ -80,7 +80,7 @@ export default function MusicPlayer() {
       />
 
       {/* Ambient background glow behind player */}
-      <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-cyan-500/15 to-blue-600/15 rounded-full blur-2xl pointer-events-none"></div>
+      <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-cyan-500/15 to-blue-600/15 rounded-full blur-xl md:blur-2xl pointer-events-none"></div>
 
       {/* Top Header */}
       <div className="flex items-center justify-between mb-4">
@@ -95,7 +95,7 @@ export default function MusicPlayer() {
         </div>
 
         {/* Animated Soundwave Visualizer Bars */}
-        <div className="flex items-end gap-1 h-6 px-2 py-1 rounded-md bg-slate-900/60 border border-white/5">
+        <div className="flex items-end gap-1 h-6 px-2 py-1 rounded-md bg-slate-900/60 border border-white/5 transform-gpu">
           <span className={`w-1 bg-cyan-400 rounded-full transition-all ${isPlaying ? 'bar-animate-1' : 'h-1.5'}`}></span>
           <span className={`w-1 bg-blue-400 rounded-full transition-all ${isPlaying ? 'bar-animate-2' : 'h-3'}`}></span>
           <span className={`w-1 bg-cyan-300 rounded-full transition-all ${isPlaying ? 'bar-animate-3' : 'h-2'}`}></span>
@@ -110,9 +110,11 @@ export default function MusicPlayer() {
           <img
             src={track.cover}
             alt={track.title}
+            loading="lazy"
+            decoding="async"
             className={`w-full h-full object-cover transition-transform duration-700 ${isPlaying ? 'scale-110' : ''}`}
           />
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]"></div>
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-none md:backdrop-blur-[1px]"></div>
           {isPlaying && (
             <div className="absolute inset-0 flex items-center justify-center">
               <Disc className="w-6 h-6 text-white animate-spin-slow opacity-80" />

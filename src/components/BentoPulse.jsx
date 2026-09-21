@@ -33,7 +33,7 @@ export default function BentoPulse() {
   return (
     <section id="pulse" className="py-20 relative">
       {/* Background radial glow */}
-      <div className="ambient-glow-cyan top-1/2 -left-40 opacity-20"></div>
+      <div className="ambient-glow-cyan top-1/2 -left-40 opacity-20 hidden md:block"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

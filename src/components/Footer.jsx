@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-midnight-950 border-t border-white/10 pt-16 pb-12 overflow-hidden">
       {/* Subtle ambient light */}
-      <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[600px] h-[250px] bg-gradient-to-t from-blue-600/10 via-cyan-500/10 to-transparent blur-3xl pointer-events-none"></div>
+      <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[600px] h-[250px] bg-gradient-to-t from-blue-600/10 via-cyan-500/10 to-transparent blur-xl md:blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10">
@@ -24,6 +24,8 @@ export default function Footer() {
                 <img 
                   src="/logo-asick.png" 
                   alt="ASICK Logo" 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain rounded-full aspect-square"
                 />
               </div>
@@ -91,7 +93,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-2.5">
             <div className="w-5 h-5 rounded-full overflow-hidden bg-white p-0.5 ring-1 ring-cyan-400/30 flex-shrink-0">
-              <img src="/logo-asick.png" alt="ASICK" className="w-full h-full object-contain rounded-full" />
+              <img src="/logo-asick.png" alt="ASICK" loading="lazy" decoding="async" className="w-full h-full object-contain rounded-full" />
             </div>
             <span>
               &copy; 2024 - 2026 <strong>ASICK Class</strong>. Dibuat dengan{' '}

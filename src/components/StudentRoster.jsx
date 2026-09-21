@@ -34,7 +34,7 @@ export default function StudentRoster() {
   return (
     <section id="roster" className="py-20 relative">
       {/* Radial ambient glow */}
-      <div className="ambient-glow-blue top-1/3 -right-40 opacity-20"></div>
+      <div className="ambient-glow-blue top-1/3 -right-40 opacity-20 hidden md:block"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -162,7 +162,7 @@ export default function StudentRoster() {
         >
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-[0_0_50px_rgba(0,210,255,0.2)] relative"
+            className="glass-card max-w-lg w-full rounded-2xl p-6 border border-cyan-500/30 shadow-[0_0_50px_rgba(0,210,255,0.2)] relative transform-gpu"
           >
             {/* Close Button */}
             <button

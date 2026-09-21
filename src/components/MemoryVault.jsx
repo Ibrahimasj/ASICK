@@ -48,7 +48,7 @@ export default function MemoryVault() {
   return (
     <section id="vault" className="py-20 relative">
       {/* Ambient background glow */}
-      <div className="ambient-glow-cyan top-1/4 -left-32 opacity-20"></div>
+      <div className="ambient-glow-cyan top-1/4 -left-32 opacity-20 hidden md:block"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -89,7 +89,7 @@ export default function MemoryVault() {
 
               {/* Subtle hover overlay with expand icon */}
               <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="w-11 h-11 rounded-full bg-midnight-950/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-cyan-300 shadow-lg group-hover:scale-110 transition-transform">
+                <div className="w-11 h-11 rounded-full bg-midnight-950/80 backdrop-blur-none md:backdrop-blur-md border border-white/20 flex items-center justify-center text-cyan-300 shadow-lg group-hover:scale-110 transition-transform">
                   <Maximize2 className="w-5 h-5" />
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default function MemoryVault() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center rounded-2xl overflow-hidden"
+            className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center rounded-2xl overflow-hidden transform-gpu"
           >
             {/* Close Button */}
             <button
@@ -141,6 +141,7 @@ export default function MemoryVault() {
               <img
                 src={currentMoment.image}
                 alt="Momen ASICK Preview"
+                loading="lazy"
                 decoding="async"
                 className="w-full h-auto max-h-[85vh] object-contain rounded-2xl select-none"
               />

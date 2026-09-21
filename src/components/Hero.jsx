@@ -7,13 +7,13 @@ export default function Hero() {
     <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
       {/* Background Radial Glow Effects */}
       <div className="ambient-glow-blue -top-32 -left-32 opacity-40"></div>
-      <div className="ambient-glow-cyan top-20 -right-24 opacity-35"></div>
+      <div className="ambient-glow-cyan top-20 -right-24 opacity-35 hidden md:block"></div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         
         {/* Floating Circular ASICK Logo Emblem */}
         <div className="flex justify-center mb-6">
-          <div className="relative group cursor-pointer">
+          <div className="relative group cursor-pointer transform-gpu">
             {/* Outer Glow Ring with Breathing Pulse */}
             <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-300 opacity-60 blur-md group-hover:opacity-100 animate-glow-pulse transition-opacity duration-500"></div>
             
@@ -22,6 +22,8 @@ export default function Hero() {
               <img 
                 src="/logo-asick.png" 
                 alt="ASICK Class Emblem" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain rounded-full aspect-square filter drop-shadow-sm"
               />
             </div>
@@ -35,7 +37,7 @@ export default function Hero() {
         </div>
 
         {/* Catchy Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/60 border border-cyan-400/30 text-xs sm:text-sm font-semibold text-cyan-300 mb-6 backdrop-blur-md shadow-glow-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/60 border border-cyan-400/30 text-xs sm:text-sm font-semibold text-cyan-300 mb-6 backdrop-blur-none md:backdrop-blur-md shadow-glow-sm">
           <Sparkles className="w-4 h-4 text-cyan-400 animate-spin-slow" />
           <span>Official Space of ASICK ✦ Batch 2024</span>
           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
